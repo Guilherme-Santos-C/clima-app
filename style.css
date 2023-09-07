@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+:root{
+    --mainColor: #00171F;
+    --secondaryColor: #007EA7;
+    --fontFamily: 'Roboto', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+body {
+    font-size: 62.5%;
+    overflow: hidden;
+    font-family: var(--fontFamily);
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: absolute;
+    background-color: #00171F;
+    width: 100vw;
+    height: 7vh;
+    padding-right: 1rem;
+    color: #fff;
+
+}
+
+main {
+    position: absolute;
+    top: 7vh;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 50% 50%;
+    width: 100vw;
+    height: 100vh;
+}
+
+#section-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.containers-section1 {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 55%;
+}
+
+.titles-section1 {
+    font-size: 2rem;
+    color:var(--mainColor)
+}
+
+.p-section1 {
+    font-size: 1.2rem;
+    color: var(--secondaryColor);
+}
+
+.input-section1 {
+    padding: 0.9rem;
+    border: 1px solid var(--secondaryColor);
+    border-radius: 15px;
+}
+
+.button-section1 {
+    padding: 0.9rem;
+    font-size: 1rem;
+    color: #fff;
+    border: none;
+    border-radius: 15px; 
+    background-color: var(--mainColor);
+    cursor: pointer;
+}
+
+#section-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+#section-2 > div {
+    display: flex;
+}
+
+.topDiv-section2 {
+    justify-content: center;
+    align-items: center;
+    width: 100vh;
+    font-size: 2.5rem;
+    gap: 1.3rem;
+}
+
+.midDiv-section2 {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem;
+    gap: 0.4rem;
+}
+
+.p-localidade {
+    font-weight: 300; 
+}
+
+.bottomDiv-section2 {
+    gap: 3rem;
+    min-width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.infos-clima {
+    font-size: 1rem;
+}
+
+.infos-clima > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infos-clima > div > p {
+    font-size: 2rem;
+}
+
+.infos-clima > div > img {
+    width: 60%;
+}
+
+

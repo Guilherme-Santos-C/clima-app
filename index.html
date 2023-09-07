@@ -1,13 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
-    <img src="" alt="">
-    
+    <header>
+        <h1>Clima App</h1>
+    </header>
+    <main>
+        <section id="section-1">
+            <div class="containers-section1">
+                <h2 class="titles-section1">Consulte o Clima</h2>
+                <p class="p-section1">digite o nome da sua cidade</p>
+                <input type="text" class="input-section1" placeholder="exemplo(Fortaleza)">
+            </div>
+            <p class="p-section1">ou</p>
+            <div class="containers-section1">
+                <h2 class="titles-section1">Acesse sua cidade via IP</h2>
+                <p class="p-section1">localização através do seu IP</p>
+                <button class="button-section1">Localização Automática</button>
+        </section>
+
+        <section id="section-2">
+            <div class="topDiv-section2">
+                <h2>13°C</h2>
+                <img src="images/sol_forte.svg" width="20%"> 
+            </div>
+            <div class="midDiv-section2">
+                <p class="p-status">Céu limpo</p>
+                <p class="p-localidade"><img src="images/local-icon.png" alt="icone de mapa"> Fortaleza, Brazil</p>
+            </div>
+            <div class="bottomDiv-section2">
+                <div class="infos-clima">
+                    <p>Sensação térmica</p>
+                    <div>
+                        <p>33°C</p>
+                        <img src="images/thermometer.svg" alt="ilustração Sensação da térmica">
+                    </div>
+                </div>
+                <div class="infos-clima">
+                    <p>Umidade do ar</p>
+                    <div>
+                        <p>33°C</p>
+                        <img src="images/humidity.svg" alt="ilustração Sensação da térmica">
+                    </div>
+                </div>
+                <div class="infos-clima">
+                    <p>velocidade dos ventos</p>
+                    <div>
+                        <p>33°C</p>
+                        <img src="images/wind.svg" alt="ilustração Sensação da térmica">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
 </body>
