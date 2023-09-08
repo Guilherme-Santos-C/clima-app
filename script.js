@@ -3,12 +3,9 @@ const api = {
     key:"154b47968a624563a5d230136230409",
 }
 
-
-
-axios.get(`${api.url}?key=${api.key}&q=beberibe`)
+axios.get(`${api.url}?key=${api.key}&q=auto:ip`)
     .then((response) => {
         console.log(response.data)
-        img.src = response.data.current.condition.icon;
     })
     .catch((response) => {
         console.log(response.data)
