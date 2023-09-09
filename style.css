@@ -113,7 +113,7 @@ main {
 }
 
 .bottomDiv-section2 {
-  gap: 3rem;
+  gap: 2rem;
   min-width: 80%;
   display: flex;
   justify-content: space-between;
@@ -131,16 +131,16 @@ main {
 }
 
 .infos-clima > div > p {
-  font-size: 2rem;
+  font-size: 1.7rem;
 }
 
 .infos-clima > div > img {
-  width: 60%;
+  width: 6rem;
 }
 
 #image_mulher_chuva {
   width: 80%;
-  height: 80%;
+  height: 73%;
 }
 
 .loader {
@@ -158,6 +158,11 @@ main {
   border-radius: 50%;
   border: 5px solid #00171f;
   animation: prixClipFix 2s linear infinite;
+}
+
+#data_icon {
+  width: 7rem;
+  object-fit: cover;
 }
 
 @keyframes rotate {
