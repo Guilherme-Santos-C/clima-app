@@ -1,5 +1,5 @@
 const api = {
-    url:"http://api.weatherapi.com/v1/current.json",
+    url:"https://api.weatherapi.com/v1/current.json",
     key:"154b47968a624563a5d230136230409",
 }
 
