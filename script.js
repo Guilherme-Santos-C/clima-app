@@ -6,8 +6,6 @@ const api = {
 const input_cidade = document.querySelector(".input-section1");
 const button_ip = document.querySelector(".button-section1");
 
-const section2 = document.getElementById("section-2");
-
 const condicoes_meteorologicas_portuges = {
     1000: 'Céu limpo',
     1003: 'Parcialmente nublado',
@@ -59,99 +57,91 @@ const condicoes_meteorologicas_portuges = {
     1282: 'Neve moderada ou intensa com trovões'
 }
 
-const traduz_condicao_climatica = (condition_code, day) => {
-    if(condition_code == 1000){
-        if(day == 1){
-            return [condicoes_meteorologicas_portuges[condition_code], "images/sol_forte.svg"]
-        }
-        else{
-            return [condicoes_meteorologicas_portuges[condition_code], "images/lua.svg"]
-        }
-    }
-    else if(condition_code == 1003){
-        if(day == 1){
-            return [condicoes_meteorologicas_portuges[condition_code], "images/sol_nuvens.svg"]
-        }
-        else{
-            return [condicoes_meteorologicas_portuges[condition_code], "images/lua_nuvens.svg"]
-        }
-    }
-    else if(condition_code == 1006){
-        return [condicoes_meteorologicas_portuges[condition_code], "images/nuvem.svg"]
-    }
-    else if(condition_code == 1009){
-        if(day == 1){
-            return [condicoes_meteorologicas_portuges[condition_code], "images/nuvens_sol.svg"]
-        }
-        else{
-            return [condicoes_meteorologicas_portuges[condition_code], "images/nuvens_lua.svg"]
-        }
-    }
-    else if(condition_code == 1063){
-        if(day == 1){
-            return [condicoes_meteorologicas_portuges[condition_code], "images/chuva_sol.svg"]
-        }
-        else{
-            return [condicoes_meteorologicas_portuges[condition_code], "images/chuva_lua.svg"]
-        }
-    }
-    else if(condition_code ==  1255 || 1258){
-        return [condicoes_meteorologicas_portuges[condition_code], "images/nevando.svg"]
-    }
-    else if(condition_code == 1087){
-        return [condicoes_meteorologicas_portuges[condition_code], "images/relampagos.svg"]
-    }
-    else if(condition_code == 1240 || 1243 || 1246){
-        return [condicoes_meteorologicas_portuges[condition_code], "images/chovendo.svg"]
-    }
-}
-
-input_cidade.addEventListener("keypress", (e) => {
-    if(e.key == "Enter"){
-        axios.get(`${api.url}?key=${api.key}&q=${input_cidade.value}`)
-            .then((response) => {
-                let icone = traduz_condicao_climatica(response.data.current.condition.code, response.data.current.is_day)[1] || response.data.current.condition.icon;
-                let condicao_portugues = traduz_condicao_climatica(response.data.current.condition.code)[0];
-                
-                section2.innerHTML = `
-                <div class="topDiv-section2">
-                <h2>${response.data.current.temp_c}°C</h2>
-                <img src="${icone}" id="data_icon""> 
+const altera_section2 = (temperatura, icone_src, condicao_portugues, cidade, pais, sensacao_termica, umidade, vento) => {
+    
+    const section2 = document.getElementById("section-2");
+    section2.innerHTML = `
+    <div class="topDiv-section2">
+                <h2>${temperatura}°C</h2>
+                <img src="${icone_src}" id="data_icon" alt="icone clima"> 
             </div>
             <div class="midDiv-section2">
                 <p class="p-status">${condicao_portugues}</p>
-                <p class="p-localidade"><img src="images/local-icon.png" alt="icone de mapa"> ${response.data.location.name}, ${response.data.location.country}</p>
+                <p class="p-localidade"><img src="images/local-icon.png" alt="icone de mapa"> ${cidade}, ${pais}</p>
             </div>
             <div class="bottomDiv-section2">
                 <div class="infos-clima">
                     <p>Sensação térmica</p>
                     <div>
-                        <p>${response.data.current.feelslike_c}°C</p>
+                        <p>${sensacao_termica}°C</p>
                         <img src="images/thermometer.svg" alt="ilustração Sensação da térmica">
                     </div>
                 </div>
                 <div class="infos-clima">
                     <p>Umidade do ar</p>
                     <div>
-                        <p>${response.data.current.humidity}%</p>
+                        <p>${umidade}%</p>
                         <img src="images/humidity.svg" alt="ilustração Sensação da térmica">
                     </div>
                 </div>
                 <div class="infos-clima">
                     <p>velocidade dos ventos</p>
                     <div>
-                        <p>${response.data.current.wind_kph}Km/h</p>
+                        <p>${vento}Km/h</p>
                         <img src="images/wind.svg" alt="ilustração Sensação da térmica">
                     </div>
                 </div>
             </div>
-                `;
+    `
+}
+
+const traduz_condicao_climatica = (condition_code, day) => {
+    switch (condition_code){
+        case 1000:
+            const retorno = day == 1 ? [condicoes_meteorologicas_portuges[condition_code], "images/sol_forte.svg"] : [condicoes_meteorologicas_portuges[condition_code], "images/lua.svg"]
+            return retorno;
+            break;
+
+        case 1003:
+            const retorno2 = day == 1 ? [condicoes_meteorologicas_portuges[condition_code], "images/nuvens_sol.svg"] : [condicoes_meteorologicas_portuges[condition_code], "images/nuvens_lua.svg"]
+            return retorno;
+            break;
             
-            console.log(response.data)
-            console.log(response.data.current.condition)
+        case 1009:
+            const retorno3 = day == 1 ? [condicoes_meteorologicas_portuges[condition_code], "images/sol_nuvens.svg"] : [condicoes_meteorologicas_portuges[condition_code], "images/lua_nuvens.svg"]
+            return retorno;
+            break;
+
+        case 1006:
+            return [condicoes_meteorologicas_portuges[condition_code], "images/nuvem.svg"];
+            break;
+
+        default:
+            return [condicoes_meteorologicas_portuges[condition_code]];
+            break;
+        
+    } 
+}
+
+input_cidade.addEventListener("keypress", (e) => {
+    if(e.key == "Enter"){
+        axios.get(`${api.url}?key=${api.key}&q=${input_cidade.value}`)
+            .then((response) => {
+                // verifica se tem o icone animado caso não retorna o icone estatico
+                let icone = traduz_condicao_climatica(response.data.current.condition.code, response.data.current.is_day)[1] || response.data.current.condition.icon;
+                
+                // traduz a resposta da condição climatica para portugues
+                let condicao_portugues = traduz_condicao_climatica(response.data.current.condition.code)[0];
+
+                // atualiza a section2 utilizando a resposta da requisição
+                altera_section2(response.data.current.temp_c, icone, condicao_portugues, response.data.location.name, response.data.location.country, response.data.current.feelslike_c, response.data.current.humidity, response.data.current.wind_kph)
+                
+                console.log(response.data)
+                
             })
             .catch((response) => {
-            console.log(response)
+                alert("Cidade não encontrada")
+                section2.innerHTML = `<img src="images/raining-animate.svg" alt="ilustração mulher na chuva" id="image_mulher_chuva">`
             })
         
         // Loader enquanto a requisição não é carregada
