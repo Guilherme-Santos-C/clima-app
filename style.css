@@ -122,6 +122,9 @@ main {
 
 .infos-clima {
   font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .infos-clima > div {
@@ -186,5 +189,52 @@ main {
   }
   100% {
     clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: 62.5%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    font-family: var(--fontFamily);
+  }
+  main {
+    position: absolute;
+    top: 7vh;
+    display: grid;
+    grid-template-rows: 100% 60%;
+    grid-template-columns: 100%;
+    width: 100vw;
+    height: 100vh;
+  }
+  #section-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1rem;
+    gap: 1rem;
+  }
+  .containers-section1 {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 80%;
+  }
+  .bottomDiv-section2 {
+    gap: 0.5rem;
+    min-width: 80%;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .infos-clima > div > p {
+    font-size: 1.3rem;
+  }
+  
+  .infos-clima > div > img {
+    width: 4rem;
   }
 }
