@@ -5,6 +5,7 @@ const api = {
 
 const input_cidade = document.querySelector(".input-section1");
 const button_ip = document.querySelector(".button-section1");
+const section2 = document.getElementById("section-2");
 
 const condicoes_meteorologicas_portuges = {
     1000: 'Céu limpo',
@@ -58,8 +59,6 @@ const condicoes_meteorologicas_portuges = {
 }
 
 const altera_section2 = (temperatura, icone_src, condicao_portugues, cidade, pais, sensacao_termica, umidade, vento) => {
-    
-    const section2 = document.getElementById("section-2");
     section2.innerHTML = `
     <div class="topDiv-section2">
                 <h2>${temperatura}°C</h2>
@@ -104,7 +103,7 @@ const traduz_condicao_climatica = (condition_code, day) => {
 
         case 1003:
             const retorno2 = day == 1 ? [condicoes_meteorologicas_portuges[condition_code], "images/nuvens_sol.svg"] : [condicoes_meteorologicas_portuges[condition_code], "images/nuvens_lua.svg"]
-            return retorno;
+            return retorno2;
             break;
             
         case 1009:
@@ -123,21 +122,18 @@ const traduz_condicao_climatica = (condition_code, day) => {
     } 
 }
 
+const faz_requisicao = (parametro_api) => axios.get(`${api.url}?key=${api.key}&q=${parametro_api}`)
+
 input_cidade.addEventListener("keypress", (e) => {
     if(e.key == "Enter"){
-        axios.get(`${api.url}?key=${api.key}&q=${input_cidade.value}`)
+        faz_requisicao(input_cidade.value)
             .then((response) => {
                 // verifica se tem o icone animado caso não retorna o icone estatico
                 let icone = traduz_condicao_climatica(response.data.current.condition.code, response.data.current.is_day)[1] || response.data.current.condition.icon;
-                
                 // traduz a resposta da condição climatica para portugues
                 let condicao_portugues = traduz_condicao_climatica(response.data.current.condition.code)[0];
-
                 // atualiza a section2 utilizando a resposta da requisição
-                altera_section2(response.data.current.temp_c, icone, condicao_portugues, response.data.location.name, response.data.location.country, response.data.current.feelslike_c, response.data.current.humidity, response.data.current.wind_kph)
-                
-                console.log(response.data)
-                
+                altera_section2(response.data.current.temp_c, icone, condicao_portugues, response.data.location.name, response.data.location.country, response.data.current.feelslike_c, response.data.current.humidity, response.data.current.wind_kph)                
             })
             .catch((response) => {
                 alert("Cidade não encontrada")
@@ -147,4 +143,35 @@ input_cidade.addEventListener("keypress", (e) => {
         // Loader enquanto a requisição não é carregada
         section2.innerHTML = `<span class="loader"></span>`
     }
+})
+
+button_ip.addEventListener("click", () => {
+    navigator.geolocation.getCurrentPosition((e) => {
+        let latitude = e.coords.latitude
+        let longitude = e.coords.longitude
+
+        faz_requisicao(`${latitude},${longitude}`)
+            .then((response_api) => {
+                 // verifica se tem o icone animado caso não retorna o icone estatico
+                let icone = traduz_condicao_climatica(response_api.data.current.condition.code, response_api.data.current.is_day)[1] || response_api.data.current.condition.icon;
+                 // traduz a resposta da condição climatica para portugues
+                let condicao_portugues = traduz_condicao_climatica(response_api.data.current.condition.code)[0];
+                 // atualiza a section2 utilizando a resposta da requisição
+                altera_section2(response_api.data.current.temp_c, icone, condicao_portugues, response_api.data.location.name, response_api.data.location.country, response_api.data.current.feelslike_c, response_api.data.current.humidity, response_api.data.current.wind_kph)                
+            })
+            .catch(() => {
+                alert("Cidade não encontrada")
+                section2.innerHTML = `<img src="images/raining-animate.svg" alt="ilustração mulher na chuva" id="image_mulher_chuva">`
+            }
+            )
+    }, (error) => {
+        if(error.code == 1){
+            alert("Para usar a Localização por ip aceite usar sua localizção na página")
+            section2.innerHTML = `<img src="images/raining-animate.svg" alt="ilustração mulher na chuva" id="image_mulher_chuva">`
+        }
+        else{
+            alert("Seu navegador não tem suporte para essa função")
+            section2.innerHTML = `<img src="images/raining-animate.svg" alt="ilustração mulher na chuva" id="image_mulher_chuva">`
+        }
+    })
 })
