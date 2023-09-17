@@ -86,6 +86,7 @@ main {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  padding-bottom: 2rem;
 }
 
 #section-2 > div {
@@ -237,4 +238,8 @@ main {
   .infos-clima > div > img {
     width: 4rem;
   }
+
+  .infos-clima:last-child {
+    display: none;
+  } 
 }
