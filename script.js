@@ -6,6 +6,8 @@ const api = {
 const input_cidade = document.querySelector(".input-section1");
 const button_ip = document.querySelector(".button-section1");
 const section2 = document.getElementById("section-2");
+const altura_tela = window.screen.height;
+const largura_tela = window.screen.width;
 
 const condicoes_meteorologicas_portuges = {
     1000: 'Céu limpo',
@@ -124,7 +126,11 @@ const traduz_condicao_climatica = (condition_code, day) => {
 
 const faz_requisicao = (parametro_api) => axios.get(`${api.url}?key=${api.key}&q=${parametro_api}`)
 
-input_cidade.addEventListener("keypress", (e) => {
+input_cidade.addEventListener("keypress", async (e) => {
+    if(largura_tela <= 600){
+        scroll(0, altura_tela) // rola até o fim da tela
+    }
+
     if(e.key == "Enter"){
         faz_requisicao(input_cidade.value)
             .then((response) => {
@@ -146,6 +152,12 @@ input_cidade.addEventListener("keypress", (e) => {
 })
 
 button_ip.addEventListener("click", () => {
+    section2.innerHTML = `<span class="loader"></span>` // coloca um loader na tela esperando a resposta
+
+    if(largura_tela <= 600){
+        scroll(0, altura_tela) // rola até o fim da tela
+    }
+
     navigator.geolocation.getCurrentPosition((e) => {
         let latitude = e.coords.latitude
         let longitude = e.coords.longitude
