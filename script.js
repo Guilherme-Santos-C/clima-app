@@ -126,9 +126,15 @@ const traduz_condicao_climatica = (condition_code, day) => {
 
 const faz_requisicao = (parametro_api) => axios.get(`${api.url}?key=${api.key}&q=${parametro_api}`)
 
-input_cidade.addEventListener("keypress", (e) => {
+input_cidade.addEventListener("keypress", async (e) => {
     if(e.key == "Enter"){
-        if(largura_tela <= 600) scroll(0, altura_tela) // rola até o fim da tela
+
+        if(largura_tela <= 600){
+            scroll(0, altura_tela) // rola até o fim da tela
+            console.log("rolou")
+        }
+
+        
         input_cidade.blur()// tira o focus do input
         faz_requisicao(input_cidade.value)
             .then((response) => {
