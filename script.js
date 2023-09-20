@@ -128,14 +128,8 @@ const faz_requisicao = (parametro_api) => axios.get(`${api.url}?key=${api.key}&q
 
 input_cidade.addEventListener("keypress", async (e) => {
     if(e.key == "Enter"){
-
-        if(largura_tela <= 600){
-            scroll(0, altura_tela) // rola até o fim da tela
-            console.log("rolou")
-        }
-
-        
         input_cidade.blur()// tira o focus do input
+        if(largura_tela <= 600) scroll(0, altura_tela) // rola até o fim da tela
         faz_requisicao(input_cidade.value)
             .then((response) => {
                 // verifica se tem o icone animado caso não retorna o icone estatico
