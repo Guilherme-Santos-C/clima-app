@@ -132,6 +132,7 @@ input_cidade.addEventListener("keypress", async (e) => {
     }
 
     if(e.key == "Enter"){
+        input_cidade.blur()// tira o focus do input
         faz_requisicao(input_cidade.value)
             .then((response) => {
                 // verifica se tem o icone animado caso não retorna o icone estatico
@@ -139,7 +140,7 @@ input_cidade.addEventListener("keypress", async (e) => {
                 // traduz a resposta da condição climatica para portugues
                 let condicao_portugues = traduz_condicao_climatica(response.data.current.condition.code)[0];
                 // atualiza a section2 utilizando a resposta da requisição
-                altera_section2(response.data.current.temp_c, icone, condicao_portugues, response.data.location.name, response.data.location.country, response.data.current.feelslike_c, response.data.current.humidity, response.data.current.wind_kph)                
+                altera_section2(response.data.current.temp_c, icone, condicao_portugues, response.data.location.name, response.data.location.country, response.data.current.feelslike_c, response.data.current.humidity, response.data.current.wind_kph)     
             })
             .catch((response) => {
                 alert("Cidade não encontrada")
