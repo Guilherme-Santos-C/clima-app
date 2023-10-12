@@ -64,7 +64,7 @@ const altera_section2 = (temperatura, icone_src, condicao_portugues, cidade, pai
     section2.innerHTML = `
     <div class="topDiv-section2">
                 <h2>${temperatura}°C</h2>
-                <img src="${icone_src}" id="data_icon" alt="icone clima"> 
+                <img src="${icone_src}" id="svg-visualizacao-clima" alt="icone de visualização do clima">   
             </div>
             <div class="midDiv-section2">
                 <p class="p-status">${condicao_portugues}</p>
